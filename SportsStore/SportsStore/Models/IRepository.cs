@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SportsStore.Models.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace SportsStore.Models
         IEnumerable<Product> Products { get; }
 
         Product GetProduct(long key);
+
+        PagedList<Product> GetProducts(QueryOptions options);
 
         void AddProduct(Product product);
 

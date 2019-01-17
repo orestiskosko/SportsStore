@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SportsStore.Models.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,11 @@ namespace SportsStore.Models
         public IEnumerable<Product> Products => _context.Products
             .Include(p => p.Category)
             .ToArray();
+
+        public PagedList<Product> GetProducts(QueryOptions options)
+        {
+            return new PagedList<Product>(_context.Products.Include(p => p.Category), options);
+        }
 
         public Product GetProduct(long key) => _context.Products
             .Include(p => p.Category)

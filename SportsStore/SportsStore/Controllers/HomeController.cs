@@ -10,15 +10,43 @@ namespace SportsStore.Controllers
     public class HomeController : Controller
     {
         private IRepository repository;
+        private ICategoryRepository catRepository;
 
-        public HomeController(IRepository repo) => repository = repo;
+        public HomeController(IRepository repo, ICategoryRepository catRepo)
+        {
+            repository = repo;
+            catRepository = catRepo;
+        }
 
-        public IActionResult Index() => View(repository.Products);
+        public IActionResult Index()
+        {
+            return View(repository.Products);
+        }
+
+        public IActionResult UpdateProduct(long key)
+        {
+            ViewBag.Categories = catRepository.Categories;
+            return View(key == 0 ? new Product() : repository.GetProduct(key));
+        }
 
         [HttpPost]
-        public IActionResult AddProduct(Product product)
+        public IActionResult UpdateProduct(Product product)
         {
-            repository.AddProduct(product);
+            if (product.Id == 0)
+            {
+                repository.AddProduct(product);
+            }
+            else
+            {
+                repository.UpdateProduct(product);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Product product)
+        {
+            repository.Delete(product);
             return RedirectToAction(nameof(Index));
         }
     }

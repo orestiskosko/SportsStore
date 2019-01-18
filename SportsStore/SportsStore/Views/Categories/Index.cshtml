@@ -1,6 +1,16 @@
 ﻿@model IEnumerable<Category>
 
 <h3 class="p-2 bg-primary text-white text-center">Categories</h3>
+
+<div class="text-center">
+    <partial name="_Pages" model="Model" />
+    @{
+        ViewBag.searches = new string[] { "Name", "Description" };
+        ViewBag.sorts = new string[] { "Name", "Description" };
+    }
+    <partial name="_PageOptions" model="Model" />
+</div>
+
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-1 font-weight-bold">Id</div>

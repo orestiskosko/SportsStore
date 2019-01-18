@@ -12,7 +12,7 @@ namespace SportsStore.Models
 
         Product GetProduct(long key);
 
-        PagedList<Product> GetProducts(QueryOptions options);
+        PagedList<Product> GetProducts(QueryOptions options, long category = 0);
 
         void AddProduct(Product product);
 

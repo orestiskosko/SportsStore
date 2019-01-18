@@ -30,6 +30,22 @@ namespace SportsStore
             services.AddTransient<IRepository, DataRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IWebServiceRepository, WebServiceRepository>();
+
+            services.AddDistributedSqlServerCache(options =>
+            {
+                options.ConnectionString = Configuration.GetConnectionString("DefaultConnection");
+                options.SchemaName = "dbo";
+                options.TableName = "SessionData";
+            });
+
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = "SportsStore.Session";
+                options.IdleTimeout = TimeSpan.FromHours(48);
+                options.Cookie.HttpOnly = false;
+            });
+
 
             services.AddMvc();
         }

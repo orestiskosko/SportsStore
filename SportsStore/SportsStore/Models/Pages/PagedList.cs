@@ -30,6 +30,7 @@ namespace SportsStore.Models.Pages
 
             TotalPages = query.Count() / PageSize;
             AddRange(query.Skip((CurrentPage - 1) * PageSize).Take(PageSize));
+           
         }
 
         public int CurrentPage { get; set; }

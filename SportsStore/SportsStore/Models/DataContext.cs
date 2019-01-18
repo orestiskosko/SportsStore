@@ -14,5 +14,15 @@ namespace SportsStore.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderLine> OrderLines { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Product>().HasIndex(p => p.Name);
+            builder.Entity<Product>().HasIndex(p => p.PurchasePrice);
+            builder.Entity<Product>().HasIndex(p => p.RetailPrice);
+
+            builder.Entity<Category>().HasIndex(c => c.Name);
+            builder.Entity<Category>().HasIndex(c => c.Description);
+        }
     }
 }
